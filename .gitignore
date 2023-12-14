@@ -1,0 +1,4 @@
+/access-credentials.tf
+/.terraform.lock.hcl
+**/.terraform/*
+
