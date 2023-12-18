@@ -98,16 +98,19 @@ resource "aws_security_group" "security_group_pub" {
   }
 }
 
+resource "aws_key_pair" "test_ssh_key" {
+  key_name   = "key_pair_test"
+  public_key = file("C:\\Users\\Rakin\\.ssh\\id_rsa.pub")
+}
 # AWS EC2 Instance for Public Subnet
-
 resource "aws_instance" "public_instance" {
   ami                         = "ami-079db87dc4c10ac91"
   instance_type               = "t2.micro"
   subnet_id                   = aws_subnet.public_subnet.id
   vpc_security_group_ids      = [aws_security_group.security_group_pub.id]
   associate_public_ip_address = true
+  key_name                    = aws_key_pair.test_ssh_key.key_name
   tags = {
     Name = "Public EC2 Instance"
   }
-
 }
