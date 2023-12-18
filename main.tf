@@ -97,3 +97,17 @@ resource "aws_security_group" "security_group_pub" {
     Name = "Practice Security Group"
   }
 }
+
+# AWS EC2 Instance for Public Subnet
+
+resource "aws_instance" "public_instance" {
+  ami                         = "ami-079db87dc4c10ac91"
+  instance_type               = "t2.micro"
+  subnet_id                   = aws_subnet.public_subnet.id
+  vpc_security_group_ids      = [aws_security_group.security_group_pub.id]
+  associate_public_ip_address = true
+  tags = {
+    Name = "Public EC2 Instance"
+  }
+
+}
